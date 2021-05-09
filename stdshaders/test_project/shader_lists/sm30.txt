@@ -1,0 +1,2 @@
+// Compiled as sm_3_0, using feature level 9.3
+test_project/test_shader_vs30.fxc

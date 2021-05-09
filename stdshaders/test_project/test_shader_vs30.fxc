@@ -1,0 +1,18 @@
+// STATIC: "TEST_COMBO1" "0..1"
+// STATIC: "TEST_COMBO2" "0..1" [=0]
+struct VS_INPUT
+{
+    float4 vPosition : POSITION;
+};
+
+struct VS_OUTPUT
+{
+    float4  vPosition : POSITION;
+};
+
+VS_OUTPUT main(VS_INPUT i)
+{
+    VS_OUTPUT o = (VS_OUTPUT)0;
+    o.vPosition = i.vPosition;
+    return o;
+}
