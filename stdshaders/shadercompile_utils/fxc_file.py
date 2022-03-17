@@ -132,7 +132,7 @@ def write_static_classes(shader_name, static_combos, static_defs, dynamic_combos
 
     # A define
     out_string += "#define shaderStaticTest_" + shader_name + " ("
-    prefix = "vsh_" if "vs" in get_shader_type(shader_name) else "fsh_"
+    prefix = "vsh_" if "vs" in get_shader_type(shader_name) else "psh_"
 
     for combo in static_combos:
         if static_defs[combo['name']] == "":
@@ -188,9 +188,9 @@ def write_static_classes(shader_name, static_combos, static_defs, dynamic_combos
             scale *= int(combo['max']) - int(combo['min']) + 1
         for combo in static_combos:
             var_name = "m_n" + combo['name']
-            out_string += "( " + hex(scale).upper().replace("X", "x") + " * " + combo['name'] + " ) + "
+            out_string += "( " + hex(scale).upper().replace("X", "x") + " * m_n" + combo['name'] + " ) + "
             scale *= int(combo['max']) - int(combo['min']) + 1
-    out_string += ";\n\t}\n\n"
+    out_string += "0;\n\t}\n\n"
 
     # Setters
     for combo in static_combos:
@@ -217,7 +217,7 @@ def write_dynamic_classes(shader_name, dynamic_combos, skips: [str]):
 
     # A define
     out_string += "#define shaderDynamicTest_" + shader_name + " ("
-    prefix = "vsh_" if "vs" in get_shader_type(shader_name) else "fsh_"
+    prefix = "vsh_" if "vs" in get_shader_type(shader_name) else "psh_"
 
     for combo in dynamic_combos:
         out_string += prefix + "forgot_to_set_dynamic_" + combo['name'] + " + "
@@ -263,9 +263,9 @@ def write_dynamic_classes(shader_name, dynamic_combos, skips: [str]):
     if len(dynamic_combos) > 0:
         scale = 1
         for combo in dynamic_combos:
-            out_string += "( " + hex(scale).upper().replace("X", "x") + " * " + combo['name'] + " ) + "
+            out_string += "( " + hex(scale).upper().replace("X", "x") + " * m_n" + combo['name'] + " ) + "
             scale *= int(combo['max']) - int(combo['min']) + 1
-    out_string += ";\n\t}\n\n"
+    out_string += "0;\n\t}\n\n"
 
     # Setters
     for combo in dynamic_combos:
